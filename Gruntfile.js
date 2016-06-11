@@ -13,7 +13,8 @@ module.exports = function(grunt) {
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
       clean: {
-        build: '<%= build_dir %>'
+        build: '<%= build_dir %>',
+        bin: '<%= compile_dir %>'
       },
       notify: {
         js_build_end: {
@@ -21,26 +22,26 @@ module.exports = function(grunt) {
             title: 'FISHY build',
             message: 'Building of project ended.'
           }
+        }
+      },
+      "babel": {
+        options: {
+          sourceMap: false,
+          presets: ['es2015'],
         },
-        css_build_end: {
-          options: {
-            title: 'OPTA v3 CSS build',
-            message: 'Building of CSS files ended.'
-          }
-        },
-        active_watch: {
-          options: {
-            title: 'FISHY Watcher',
-            message: 'Watcher is active!'
-          }
+        dist: {
+          files: [{
+              expand: true,
+              cwd: 'src',
+              src: ['**/*.js'],
+              dest: '<%= compile_dir %>',
+              ext: ".js"
+          }]
         }
       },
       browserify: {
         dist: {
-          options: {
-            transform: [["babelify", { "presets": ["es2015"]}]]
-          },
-          src: ["src/**/*.js"],
+          src: ["<%= compile_dir %>/**/*.js"],
           dest: '<%= build_dir %>/<%= pkg.name %>.js'
         }
       },
@@ -52,7 +53,7 @@ module.exports = function(grunt) {
           files: [
             'src/**/*.js'
           ],
-          tasks: ['build_js', 'notify:js_build_end'],
+          tasks: ['build_js_watch', 'notify:js_build_end'],
           options: {
             debounceDelay: 250,
             interrupt: true
@@ -65,7 +66,9 @@ module.exports = function(grunt) {
 
 //TASKS REG---------------------------
 
-  grunt.registerTask('build_js', ['clean:build', 'browserify']);
-  grunt.registerTask('default', ['build_js', 'watch', 'notify:active_watch']);
+  grunt.registerTask('build_js', ['clean:build', 'clean:bin', 'babel', 'browserify']);
+  grunt.registerTask('build_js_watch', ['changed:babel', 'browserify']);
+  grunt.registerTask('bbabel', ['babel']);
+  grunt.registerTask('default', ['build_js', 'watch']);
 
 };

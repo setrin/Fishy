@@ -4,6 +4,7 @@
 
 #Project files
 [Bb]uild/
+[Bb]in/
 
 node_modules/
 *.sublime-project
