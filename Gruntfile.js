@@ -24,6 +24,17 @@ module.exports = function(grunt) {
           }
         }
       },
+      copy: {
+        libs: {
+          src: [
+            'libs/*.js',
+          ],
+          dest: '<%= compile_dir %>',
+          cwd: 'src/',
+          expand: true,
+          flatten: true
+        }
+      },
       "babel": {
         options: {
           sourceMap: false,
@@ -33,7 +44,7 @@ module.exports = function(grunt) {
           files: [{
               expand: true,
               cwd: 'src',
-              src: ['**/*.js'],
+              src: ['js/**/*.js'],
               dest: '<%= compile_dir %>',
               ext: ".js"
           }]
@@ -66,7 +77,7 @@ module.exports = function(grunt) {
 
 //TASKS REG---------------------------
 
-  grunt.registerTask('build_js', ['clean:build', 'clean:bin', 'babel', 'browserify']);
+  grunt.registerTask('build_js', ['clean:build', 'clean:bin', 'babel', /*'copy:libs',*/ 'browserify']);
   grunt.registerTask('build_js_watch', ['changed:babel', 'browserify']);
   grunt.registerTask('bbabel', ['babel']);
   grunt.registerTask('default', ['build_js', 'watch']);
