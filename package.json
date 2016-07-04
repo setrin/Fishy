@@ -9,6 +9,7 @@
     "grunt-browserify": "^5.0.0",
     "grunt-changed": "^1.0.0",
     "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-notify": "^0.4.5",
     "jquery": "^2.2.4",
@@ -18,7 +19,9 @@
   "version": "0.0.1",
   "description": "Playground game",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "^1.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -38,5 +41,12 @@
   "bugs": {
     "url": "https://github.com/setrin/Fishy/issues"
   },
-  "homepage": "https://github.com/setrin/Fishy#readme"
+  "homepage": "https://github.com/setrin/Fishy#readme",
+  "jshintConfig": {
+    "esversion": 6,
+    "strict": "global",
+    "undef": true,
+    "unused": true,
+    "predef": [ "require", "window", "document", "requestAnimationFrame", "performance", "console"]
+  }
 }
