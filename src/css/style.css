@@ -1,6 +1,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	background-color: #00B2FF;
 }
 
 canvas {
@@ -8,7 +9,6 @@ canvas {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	border: 1px solid #000;
 	position: absolute;
 	left: 50%;
     top: 50%;
