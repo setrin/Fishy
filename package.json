@@ -47,6 +47,7 @@
     "strict": "global",
     "undef": true,
     "unused": true,
-    "predef": [ "require", "window", "document", "requestAnimationFrame", "performance", "console"]
+    "predef": [ "require", "window", "document", "requestAnimationFrame", "performance", "console", "postal", "Math", "Image"],
+    "loopfunc": true
   }
 }
